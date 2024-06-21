@@ -1,0 +1,77 @@
+{% extends 'app.html' %}
+{% block content %}
+
+<style>
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        
+        background: linear-gradient(to right, #1e1978, #612216);
+        background-size: cover;
+    }
+
+    .form-container {
+        background-color: white; /* Or any other background color */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow */
+        width: 400px; /* Adjust width as needed */
+        max-width: 90%; /* Ensure it's responsive */
+    }
+</style>
+
+<div class="main-container">
+    <div class="form-container">
+        <h2 class="text-center mb-4">Register form</h2>
+        <form action="/register" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label(for="name")}}
+                {{ form.name(id="name", class="form-control")}}
+
+                {% if form.name.errors %}
+                    <ul class="text-danger">
+                        {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label(for="email")}}
+                {{ form.email(id="email", class="form-control")}}
+
+                {% if form.email.errors %}
+                    <ul class="text-danger">
+                        {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label(for="password")}}
+                {{ form.password(id="password", class="form-control")}}
+
+                {% if form.password.errors %}
+                    <ul class="text-danger">
+                        {% for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="text-center">
+                {{ form.submit(class="btn btn-dark mt-4") }}
+                <a href="/login" class="btn btn-secondary mt-4">Login page</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

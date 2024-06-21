@@ -1,0 +1,126 @@
+{% extends 'app.html' %}
+{% block content %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background: linear-gradient(to right, #1e1978, #612216);
+    }
+    .login-box {
+        background-color: white; 
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(244, 243, 243, 0.1);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+    .login-box h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #0a0505;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 100%;
+    }
+    .btn {
+        border-radius: 5px;
+        padding: 10px 20px;
+        width: 100%;
+        border: none;
+        background: #ff416c;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-decoration: none; /* added */
+        display: inline-block; /* added */
+        margin-top: 10px; /* added */
+    }
+    .btn:hover {
+        background: #2bff59;
+    }
+    .alert {
+        margin-bottom: 20px;
+        color: #721c24; /* adjusted */
+        background-color: #f8d7da; /* adjusted */
+        border-color: #f5c6cb; /* adjusted */
+        padding: .75rem 1.25rem; /* adjusted */
+        margin-bottom: 1rem; /* adjusted */
+        border: 1px solid transparent; /* adjusted */
+        border-radius: .25rem; /* adjusted */
+        text-align: center; /* added */
+    }
+    a {
+        color: #ff416c;
+    }
+    a:hover {
+        color: #ff4b2b;
+    }
+</style>
+
+<div class="container">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <form action="/login" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.email.label(for="email") }}
+                {{ form.email(id="email", class="form-control") }}
+        
+                {% if form.email.errors %}
+                    <ul>
+                        {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label(for="password") }}
+                {{ form.password(id="password", class="form-control") }}
+
+                {% if form.password.errors %}
+                    <ul>
+                        {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {{ form.submit(class="btn") }}
+            <br>
+            <br><p>If Don't have account! Sign up</p>
+            <a href="/register" class="btn mt-3">Sign Up</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
